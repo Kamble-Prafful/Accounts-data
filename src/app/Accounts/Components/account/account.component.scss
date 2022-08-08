@@ -1,0 +1,92 @@
+.container {
+  width: 500px;
+  height: auto;
+  border-radius: 7px;
+  padding: 30px;
+  margin-top: 100px;
+
+  .btnContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin: 10px 0;
+  }
+}
+
+.flex-center {
+  .mat-grid-tile-content {
+    justify-content: flex-start;
+  }
+}
+
+.flexC {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-grid-list {
+  // border: 1px solid red;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  h4 {
+    margin: 0 0 0 10px;
+    font-size: 18px;
+  }
+}
+
+.d-flex4 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 430px;
+
+  h4 {
+    margin: 0 0 0 10px;
+    font-size: 18px;
+  }
+}
+
+.d-flex3 {
+  display: flex;
+  justify-content: flex-start;
+  width: 180px;
+}
+
+.d-flex3 {
+  display: flex;
+  justify-content: flex-start;
+  width: auto;
+}
+
+.dropdown {
+  display: block;
+  width: 130px;
+  border-radius: 3px;
+  padding: 2px 10px;
+}
+
+.form-control {
+  appearance: auto;
+}
+
+//Removing arrows of input number type
+#FirstInput ::-webkit-outer-spin-button,
+#FirstInput ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 40px;
+  text-align: center;
+}

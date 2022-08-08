@@ -1,0 +1,173 @@
+<div class="flexC">
+  <mat-card class="container mat-elevation-z8">
+    <form (ngSubmit)="onSubmit(acForm)" #acForm="ngForm">
+      <mat-grid-list cols="2" rowHeight="70px">
+        <ng-container *ngIf="addForm">
+          <mat-grid-tile colspan="2">
+            <div class="form-group my-3 d-flex4">
+              <mat-label for="ac-number">Account No:</mat-label>
+              <h4 id="ac-number">
+                {{ acNumber }}
+              </h4>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form-group my-3">
+              <mat-label for="name">Name:</mat-label>
+              <input
+                matInput
+                class="form-control"
+                type="text"
+                id="name"
+                name="name"
+                required
+                ngModel
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form-group d-flex2 my-3">
+              <mat-select
+                class="form-control"
+                id="ac-type"
+                name="type"
+                required
+                [ngModel]="defaultOpt.value"
+              >
+                <mat-option #defaultOpt value="Savings">Savings</mat-option>
+                <mat-option value="Current">Current</mat-option>
+                <mat-option value="Fixed Deposit">Fixed Deposit</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form-group my-3">
+              <mat-label for="interest">Interest Rate:</mat-label>
+              <input
+                matInput
+                class="form-control"
+                type="text"
+                id="interest"
+                name="interest"
+                required
+                ngModel
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="form-group my-3" id="FirstInput">
+              <mat-label for="ac-balance">Balance: </mat-label>
+              <input
+                matInput
+                class="form-control"
+                type="number"
+                id="ac-balance"
+                name="balance"
+                required
+                [ngModel]="accountDetails.acName"
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+        </ng-container>
+
+        <ng-container *ngIf="!addForm">
+          <mat-grid-tile>
+            <div class="form-group my-3 d-flex">
+              <mat-label for="ac-number">Account No:</mat-label>
+              <h4 class="align-self-center mx-2" id="ac-number">
+                {{ acNumber }}
+              </h4>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="form-group my-3 d-flex m-left" id="FirstInput">
+              <label for="ac-balance" class="mx-2">Balance: </label>
+              <h4>{{ accountDetails.acBalance | currency: "INR" }}</h4>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form-group my-3">
+              <mat-label for="name">Name:</mat-label>
+              <input
+                matInput
+                class="form-control"
+                type="text"
+                id="name"
+                name="name"
+                required
+                [ngModel]="accountDetails.acName"
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form-group my-3">
+              <mat-label for="interest">Interest Rate:</mat-label>
+              <input
+                matInput
+                class="form-control"
+                type="text"
+                id="interest"
+                name="interest"
+                required
+                [ngModel]="accountDetails.acInterest | percent: '1.1-2'"
+              />
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="form-group d-flex2 my-3">
+              <!-- <mat-label for="ac-type">Account Type:</mat-label> -->
+              <mat-select
+                class="form-control"
+                id="ac-type"
+                name="type"
+                required
+                [ngModel]="accountDetails.acType"
+              >
+                <mat-option #defaultOpt value="Savings">Savings</mat-option>
+                <mat-option value="Current">Current</mat-option>
+                <mat-option value="Fixed Deposit">Fixed Deposit</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+        </ng-container>
+
+        <mat-grid-tile [colspan]="2">
+          <div class="btnContainer">
+            <ng-container *ngIf="addForm">
+              <button
+                mat-raised-button
+                color="primary"
+                class="btn btn-success"
+                type="button"
+                (click)="onSubmit(acForm)"
+              >
+                Add
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!addForm">
+              <button
+                mat-raised-button
+                color="primary"
+                class="btn btn-success"
+                type="button"
+                (click)="onSubmit(acForm)"
+              >
+                Update
+              </button>
+            </ng-container>
+            <button
+              mat-raised-button
+              color="accent"
+              class="btn btn-warning"
+              [routerLink]="['/accounts/accounts-store']"
+              routerLinkActive="router-link-active"
+            >
+              Go Back
+            </button>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card>
+</div>

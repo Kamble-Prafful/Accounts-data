@@ -1,0 +1,10 @@
+.flexBtnContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+
+  .mat-buttonSuccess {
+    background-color: #4bb543;
+    color: #000;
+  }
+}

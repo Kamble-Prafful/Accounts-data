@@ -1,4 +1,15 @@
-<app-login></app-login>
+<nav class="navbar d-flex">
+  <ul class="nav nav-pills">
+    <li style="list-style: none">
+      <a
+        mat-raised-button
+        color="primary"
+        [routerLink]="['accounts/accounts-store']"
+        routerLinkActive="active"
+        >Accounts Store</a
+      >
+    </li>
+  </ul>
+</nav>
 
-<!-- <app-account-list></app-account-list>
-<app-account></app-account> -->
+<router-outlet></router-outlet>

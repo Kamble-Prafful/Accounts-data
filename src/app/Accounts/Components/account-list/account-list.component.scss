@@ -1,0 +1,35 @@
+.faEdit,
+.faTrash,
+.FaExchange {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.faEdit:hover,
+.faTrash:hover,
+.FaExchange:hover {
+  transform: scale(1.2);
+}
+
+.container {
+  .table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .mat-table {
+      width: 80%;
+      text-align: center;
+      border-radius: 10px !important;
+
+      th {
+        text-align: center;
+      }
+    }
+  }
+  .mat-buttonSuccess {
+    background-color: #00b74a;
+    color: #fff;
+  }
+}

@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Hi {{ acName }}</h1>
+<h6 style="font-size: 16px; margin-bottom: 20px">{{ acNumber }}</h6>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Amount:</mat-label>
+    <input matInput #acAmt />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" mat-dialog-close>No Thanks</button>
+  <button
+    mat-raised-button
+    color="buttonSuccess"
+    cdkFocusInitial
+    [mat-dialog-close]="acAmt.value"
+  >
+    Withdraw
+  </button>
+</div>

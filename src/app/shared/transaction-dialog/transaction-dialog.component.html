@@ -1,0 +1,27 @@
+<div class="container">
+  <h1 mat-dialog-title class="text-center">Hey, {{ acName }}</h1>
+  <div mat-dialog-content class="text-center">
+    Kindly choose whether you want to Add the amount or Withdraw the amount from
+    your account
+  </div>
+  <div class="flexBtnContainer" mat-dialog-actions>
+    <button
+      class="btn btn-success"
+      mat-raised-button
+      color="buttonSuccess"
+      [mat-dialog-close]="addedAmount"
+      (click)="depositDialog()"
+    >
+      Deposit
+    </button>
+    <button
+      class="btn btn-warning"
+      mat-raised-button
+      color="warn"
+      [mat-dialog-close]
+      (click)="withdrawDialog()"
+    >
+      Withdraw
+    </button>
+  </div>
+</div>

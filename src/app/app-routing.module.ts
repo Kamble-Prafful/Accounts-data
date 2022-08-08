@@ -1,11 +1,12 @@
-import { AccountComponent } from './Accounts/account/account.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import AccountListComponent from './Accounts/account-list/account-list.component';
 
 const routes: Routes = [
-  { path: 'add-account', component: AccountComponent },
-  { path: 'account-list', component: AccountListComponent },
+  {
+    path: 'accounts',
+    loadChildren: () =>
+      import('./Accounts/Modules/accounts.module').then((m) => m.AccountsModule),
+  },
 ];
 
 @NgModule({

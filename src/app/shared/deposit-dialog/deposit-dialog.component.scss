@@ -1,0 +1,19 @@
+.m-right {
+  margin-right: 160px;
+  margin-left: 139px;
+}
+
+.col-4 {
+  height: 300px;
+}
+
+#transferAmt::-webkit-outer-spin-button,
+#transferAmt::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mat-buttonSuccess {
+  background-color: #58c350;
+  color: #fff;
+}
