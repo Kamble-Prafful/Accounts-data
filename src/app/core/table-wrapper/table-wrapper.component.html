@@ -1,0 +1,76 @@
+<div class="mat-table">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container
+      *ngFor="let elem of objectKeys(displayedColumns)"
+      matColumnDef="{{ elem }}"
+    >
+      <th mat-header-cell *matHeaderCellDef>
+        {{ elem !== "displayedColumns[action]" ? displayedColumns[elem] : "" }}
+      </th>
+
+      <ng-container *ngIf="elem !== 'action' && elem !== 'acBalance'">
+        <td mat-cell *matCellDef="let element">
+          {{ element[elem] }}
+        </td>
+      </ng-container>
+      <ng-container *ngIf="elem === 'acBalance'">
+        <td mat-cell *matCellDef="let element">
+          {{ element["acBalance"] | currency: "INR" }}
+        </td>
+      </ng-container>
+      <ng-container *ngIf="elem === 'action'">
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="mx-1 faEdit"
+            (click)="onEdit(element.id)"
+            routerLinkActive="active"
+            matTooltip="Edit"
+            type="button"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="mode_edit"
+              style="font-size: 25px"
+            ></mat-icon>
+          </button>
+
+          <button
+            class="mx-1 faTrash"
+            (click)="onDelete(element.id)"
+            matTooltip="Delete"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="delete"
+              style="font-size: 25px"
+            ></mat-icon>
+          </button>
+
+          <button
+            class="FaExchange"
+            type="button"
+            (click)="onAdd(element.id)"
+            matTooltip="Deposit Money"
+          >
+            <img src="../../../assets/arrow.png" alt="Withdraw" />
+          </button>
+          <button
+            class="FaExchange"
+            type="button"
+            matTooltip="Withdraw Money"
+            (click)="onWithdraw(element.id)"
+          >
+            <img src="../../../assets/money-withdrawal.png" alt="Withdraw" />
+          </button>
+        </td>
+      </ng-container>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="objectKeys(displayedColumns)"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: objectKeys(displayedColumns)"
+    ></tr>
+  </table>
+</div>

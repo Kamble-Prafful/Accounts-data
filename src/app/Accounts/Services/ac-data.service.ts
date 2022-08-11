@@ -45,10 +45,4 @@ export class AcDataServiceService {
     let deleteUrl = 'http://localhost:3000/accounts/' + id;
     return this.http.delete(deleteUrl);
   }
-
-  reloadData(reload: boolean) {
-    if (reload) {
-      true;
-    }
-  }
 }

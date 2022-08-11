@@ -4,35 +4,41 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IAccountDetails } from '../../Interfaces/accountDetails';
 import { AcDataServiceService } from '../../Services/ac-data.service';
-import { TransactionDialogComponent } from 'src/app/shared/transaction-dialog/transaction-dialog.component';
+import { WithdrawDialogComponent } from '../withdraw-dialog/withdraw-dialog.component';
+import { DepositDialogComponent } from '../deposit-dialog/deposit-dialog.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-account-list',
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.scss'],
+  providers: [DatePipe],
 })
 export class AccountListComponent implements OnInit {
   constructor(
     private _acDataService: AcDataServiceService,
     private dialogRef: MatDialog,
-    private navigatingRouter: Router
+    private datePipe: DatePipe,
+    private navigateRouter: Router
   ) {}
 
-  displayedColumns: string[] = [
-    'action',
-    'acName',
-    'acNumber',
-    'acType',
-    'acInterest',
-    'acDate',
-    'acBalance',
-  ];
-
-  popoverTitle: string = 'Account Delete Confirmation';
-  popoverMessage: string = 'Are you sure you want to delete this Account?';
-  cancelClicked: boolean = false;
-
+  //Account Store data
   accountData: IAccountDetails[] = [];
+
+  //Mat-table configuration
+
+  displayedColumns: Object = {
+    action: 'Action',
+    acName: 'Name',
+    acNumber: 'Ac Number',
+    acType: 'Ac Type',
+    acInterest: 'Interest',
+    acDate: 'DOC',
+    acBalance: 'Balance',
+  };
+
+  //Variable for DialogBox data
+  addedAmount!: number;
 
   ngOnInit(): void {
     //Refreshing table on OnDelete listener
@@ -42,10 +48,24 @@ export class AccountListComponent implements OnInit {
   getAccounts() {
     this._acDataService
       .getAccounts()
-      .subscribe((acData) => (this.accountData = acData));
+      .subscribe(
+        (acData) => ((this.accountData = acData), console.log(this.accountData))
+      );
   }
 
+  // setPipe() {
+  //   this.accountData.forEach((elem) => {
+  //     this.datePipe.transform(elem.acDate, 'dd/MM/YYYY');
+  //   });
+  // }
+
   //Event Listeners
+
+  onEdit(id: any) {
+    this.navigateRouter.navigate(['/accounts/add-account/' + id], {
+      queryParams: { editMode: true },
+    });
+  }
 
   onDelete(id: any) {
     this.dialogRef
@@ -60,24 +80,70 @@ export class AccountListComponent implements OnInit {
       });
   }
 
-  //Transaction Btn
-  transactionToggle(id: any) {
-    let acNumber: number = 0;
-    let acName: string = '';
+  //Deposit Dialog
+  depositDialog(id: any) {
     this._acDataService.getCurrentAccount(id).subscribe((res) => {
-      id = res.id;
-      acNumber = res.acNumber;
-      acName = res.acName;
       this.dialogRef
-        .open(TransactionDialogComponent, {
+        .open(DepositDialogComponent, {
           data: {
-            PostingId: id,
-            acNumber: acNumber,
-            acName: acName,
+            acName: res.acName,
+            acNumber: res.acNumber,
           },
         })
         .afterClosed()
-        .subscribe();
+        .subscribe((res) => {
+          this.addedAmount = res;
+          this._acDataService.getCurrentAccount(id).subscribe((res) => {
+            let updatedAcData: IAccountDetails = {
+              id: res.id,
+              acType: res.acType,
+              acInterest: res.acInterest,
+              acName: res.acName,
+              acNumber: res.acNumber,
+              acBalance: Number(this.addedAmount) + Number(res.acBalance),
+              acDate: res.acDate,
+            };
+
+            this._acDataService
+              .updateAccount(id, updatedAcData)
+              .subscribe(() => {
+                this.getAccounts();
+              });
+          });
+        });
+    });
+  }
+
+  withdrawDialog(id: any) {
+    this._acDataService.getCurrentAccount(id).subscribe((res) => {
+      this.dialogRef
+        .open(WithdrawDialogComponent, {
+          data: {
+            acName: res.acName,
+            acNumber: res.acNumber,
+          },
+        })
+        .afterClosed()
+        .subscribe((res) => {
+          this.addedAmount = res;
+          this._acDataService.getCurrentAccount(id).subscribe((res) => {
+            let updatedAcData: IAccountDetails = {
+              id: res.id,
+              acType: res.acType,
+              acInterest: res.acInterest,
+              acName: res.acName,
+              acNumber: res.acNumber,
+              acBalance: res.acBalance - Number(this.addedAmount),
+              acDate: res.acDate,
+            };
+
+            this._acDataService
+              .updateAccount(id, updatedAcData)
+              .subscribe(() => {
+                this.getAccounts();
+              });
+          });
+        });
     });
   }
 }

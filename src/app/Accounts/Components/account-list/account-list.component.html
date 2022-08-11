@@ -14,84 +14,13 @@
     </button>
   </div>
   <div class="table-container">
-    <table
-      mat-table
+    <app-table-wrapper
       [dataSource]="accountData"
-      class="mat-elevation-z8 mat-table"
-    >
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            class="mx-1 faEdit"
-            routerLink="/accounts/add-account/{{ element.id }}"
-            [queryParams]="{ editMode: true }"
-            routerLinkActive="active"
-            type="button"
-          >
-            <mat-icon
-              aria-hidden="false"
-              aria-label="Example home icon"
-              fontIcon="mode_edit"
-              style="font-size: 25px"
-            ></mat-icon>
-          </button>
-
-          <button class="mx-1 faTrash" (click)="onDelete(element.id)">
-            <mat-icon
-              aria-hidden="false"
-              aria-label="Example home icon"
-              fontIcon="delete"
-              style="font-size: 25px"
-            ></mat-icon>
-          </button>
-
-          <button
-            class="mx-1 FaExchange"
-            (click)="transactionToggle(element.id)"
-            type="button"
-          >
-            <mat-icon
-              aria-hidden="false"
-              fontIcon="import_export"
-              style="font-size: 25px; transform: scale(1.3)"
-            ></mat-icon>
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="acType">
-        <th mat-header-cell *matHeaderCellDef>Account Type</th>
-        <td mat-cell *matCellDef="let element">{{ element.acType }}</td>
-      </ng-container>
-      <ng-container matColumnDef="acInterest">
-        <th mat-header-cell *matHeaderCellDef>Interest Rate</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.acInterest | percent: "1.1-2" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="acName">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.acName }}</td>
-      </ng-container>
-      <ng-container matColumnDef="acNumber">
-        <th mat-header-cell *matHeaderCellDef>Ac Number</th>
-        <td mat-cell *matCellDef="let element">{{ element.acNumber }}</td>
-      </ng-container>
-      <ng-container matColumnDef="acDate">
-        <th mat-header-cell *matHeaderCellDef>DOC</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.acDate | date: "dd/MM/YYYY" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="acBalance">
-        <th mat-header-cell *matHeaderCellDef>Balance</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.acBalance | currency: "INR" }}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+      [displayedColumns]="displayedColumns"
+      (editItem)="onEdit($event)"
+      (deleteItem)="onDelete($event)"
+      (depositItem)="depositDialog($event)"
+      (withdrawItem)="withdrawDialog($event)"
+    ></app-table-wrapper>
   </div>
 </div>

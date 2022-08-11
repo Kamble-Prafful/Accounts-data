@@ -1,4 +1,3 @@
-import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AccountsRoutingModule } from './../Accounts/Modules/accounts-routing.module';
 import { AppRoutingModule } from './../app-routing.module';
@@ -7,14 +6,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { DepositDialogComponent } from './deposit-dialog/deposit-dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
-import { WithdrawDialogComponent } from './withdraw-dialog/withdraw-dialog.component';
 
 @NgModule({
-  declarations: [DepositDialogComponent, WithdrawDialogComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -26,12 +23,6 @@ import { WithdrawDialogComponent } from './withdraw-dialog/withdraw-dialog.compo
     MatDialogModule,
     HttpClientModule,
   ],
-  exports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDialogModule,
-    DepositDialogComponent,
-  ],
+  exports: [],
 })
 export class SharedModule {}
