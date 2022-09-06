@@ -18,18 +18,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    .mat-table {
-      width: 80%;
-      text-align: center;
-      border-radius: 10px !important;
 
-      th {
-        text-align: center;
-      }
+    .mat-buttonSuccess {
+      background-color: #00b74a;
+      color: #fff;
     }
   }
-  .mat-buttonSuccess {
-    background-color: #00b74a;
-    color: #fff;
+}
+.grid1 {
+  width: 80%;
+  height: 1000px !important;
+  text-align: center;
+  border-radius: 10px !important;
+
+  th {
+    text-align: center;
   }
 }

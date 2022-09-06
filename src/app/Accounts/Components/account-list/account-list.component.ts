@@ -1,32 +1,54 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { IAccountDetails } from '../../Interfaces/accountDetails';
 import { AcDataServiceService } from '../../Services/ac-data.service';
 import { WithdrawDialogComponent } from '../withdraw-dialog/withdraw-dialog.component';
 import { DepositDialogComponent } from '../deposit-dialog/deposit-dialog.component';
-import { DatePipe } from '@angular/common';
+import {
+  CurrencyPipe,
+  DatePipe,
+  formatDate,
+  PercentPipe,
+} from '@angular/common';
+import { IgxColumnComponent } from 'igniteui-angular';
 
 @Component({
   selector: 'app-account-list',
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.scss'],
-  providers: [DatePipe],
+  providers: [DatePipe, CurrencyPipe, PercentPipe],
 })
 export class AccountListComponent implements OnInit {
   constructor(
     private _acDataService: AcDataServiceService,
     private dialogRef: MatDialog,
     private datePipe: DatePipe,
-    private navigateRouter: Router
+    private currencyPipe: CurrencyPipe,
+    private navigateRouter: Router,
+    private percentPipe: PercentPipe
   ) {}
+
+  onColumnInit(column: IgxColumnComponent) {
+    if (column.field === 'acDate') {
+      column.formatter = (date) =>
+        formatDate(new Date(date), 'dd/MM/YYYY', 'en');
+    } else if (column.field === 'acBalance') {
+      column.formatter = (balance) =>
+        this.currencyPipe.transform(balance, 'INR');
+    } else if (column.field === 'acInterest') {
+      column.formatter = (interest) =>
+        this.percentPipe.transform(interest, '1.1-2');
+    }
+  }
+
+  ObjectKeys = Object.keys;
 
   //Account Store data
   accountData: IAccountDetails[] = [];
 
   //Mat-table configuration
-
   displayedColumns: Object = {
     action: 'Action',
     acName: 'Name',
@@ -52,12 +74,6 @@ export class AccountListComponent implements OnInit {
         (acData) => ((this.accountData = acData), console.log(this.accountData))
       );
   }
-
-  // setPipe() {
-  //   this.accountData.forEach((elem) => {
-  //     this.datePipe.transform(elem.acDate, 'dd/MM/YYYY');
-  //   });
-  // }
 
   //Event Listeners
 
@@ -114,6 +130,7 @@ export class AccountListComponent implements OnInit {
     });
   }
 
+  //Withdraw Dialog
   withdrawDialog(id: any) {
     this._acDataService.getCurrentAccount(id).subscribe((res) => {
       this.dialogRef

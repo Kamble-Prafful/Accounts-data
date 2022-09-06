@@ -1,3 +1,4 @@
+import { IgxGridModule } from 'igniteui-angular';
 import { TableWrapperComponent } from './../../core/table-wrapper/table-wrapper.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -45,6 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatButtonModule,
     MatTooltipModule,
+    IgxGridModule,
   ],
 
   exports: [MatButtonModule],

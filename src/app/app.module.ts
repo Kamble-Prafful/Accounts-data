@@ -1,3 +1,4 @@
+import { AccountsModule } from './Accounts/Modules/accounts.module';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,7 @@ import {
   NoopAnimationsModule,
   BrowserAnimationsModule,
 } from '@angular/platform-browser/animations';
+import { IgxGridModule } from 'igniteui-angular';
 
 @NgModule({
   declarations: [DialogComponent, AppComponent],
@@ -24,6 +26,7 @@ import {
     NoopAnimationsModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    IgxGridModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [TableWrapperComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MatTableModule,

@@ -13,14 +13,25 @@
       Add Account
     </button>
   </div>
-  <div class="table-container">
-    <app-table-wrapper
-      [dataSource]="accountData"
-      [displayedColumns]="displayedColumns"
-      (editItem)="onEdit($event)"
-      (deleteItem)="onDelete($event)"
-      (depositItem)="depositDialog($event)"
-      (withdrawItem)="withdrawDialog($event)"
-    ></app-table-wrapper>
-  </div>
+
+  <igx-grid
+    #grid1
+    class="grid1"
+    [autoGenerate]="false"
+    [data]="accountData"
+    (columnInit)="onColumnInit($event)"
+    [allowFiltering]="true"
+    [allowAdvancedFiltering]="true"
+    [filterMode]="'excelStyleFilter'"
+  >
+    <igx-paginator [perPage]="5"> </igx-paginator>
+    <igx-column
+      *ngFor="let element of ObjectKeys(displayedColumns)"
+      field="{{ element }}"
+    >
+      <ng-template igxHeader let-column>
+        {{ column.field }}
+      </ng-template>
+    </igx-column>
+  </igx-grid>
 </div>
